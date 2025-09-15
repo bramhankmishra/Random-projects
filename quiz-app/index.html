@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="./style/style.css" />
+    <link
+      rel="stylesheet"
+      href="./style/mobile.css"
+      media="screen and (max-width: 1080px)"
+    />
+  </head>
+  <body>
+    <div id="image-container">
+      <img
+        class="ground-image"
+        src="./assets/ground.png"
+        alt="ground image"
+        id="ground-image-left"
+      />
+
+      <img
+        class="ground-image"
+        src="./assets/ground.png"
+        alt="ground image"
+        id="ground-image-right"
+      />
+
+      <img
+        class="mountain-image"
+        src="./assets/mountain.webp"
+        alt="mountain image"
+        id="mountain-image-right"
+      />
+      <img
+        class="cloud-image"
+        src="./assets/cloud.webp"
+        alt="Cloud image left"
+        id="cloud-image-left"
+      />
+      <img
+        class="cloud-image"
+        src="./assets/cloud.webp"
+        alt="Cloud image right"
+        id="cloud-image-right"
+      />
+      <img
+        class="grass-image"
+        src="./assets/grass.webp"
+        alt="grass image"
+        id="grass-image-left"
+      />
+
+      <img
+        class="grass-image"
+        src="./assets/grass.webp"
+        alt="grass image"
+        id="grass-image-right"
+      />
+
+      <img
+        class="flower-image"
+        src="./assets/flower.webp"
+        alt="flower image"
+        id="flower-image-left"
+      />
+
+      <img
+        class="heart-image"
+        src="./assets/heart.webp"
+        alt="heart image"
+        id="heart-image-centre"
+      />
+
+      <img
+        class="quiz-time-image"
+        src="./assets/quiz-time-text.webp"
+        alt="quiz-time image"
+        id="quiz-time-image-centre"
+      />
+
+      <img
+        class="start-button-bg-image"
+        src="./assets/start-button-background.webp"
+        alt="start button bg image"
+        id="start-button-bg-image"
+        onclick="nextpage()"
+      />
+
+      <img
+        class="start-text-image"
+        src="./assets/start-text.png"
+        alt="start button text image"
+        id="start-text-image"
+        onclick="nextpage()"
+      />
+    </div>
+
+    <div id="main-container">
+      <div id="question-section"></div>
+      <div id="options-section"></div>
+      <button type="button" id="submit-answer" onclick="checkanswer()">
+        Submit
+      </button>
+    </div>
+    <script type="module">
+      // Import your data at the top of the module
+      import { quizData } from "./data.js";
+      var question_num = 0;
+      var correct_answer = 0;
+      var incorrect_answer = 0;
+
+      // Display result
+      function display_result() {
+        document.getElementById("submit-answer").style.opacity = 0;
+        document.getElementById("question-section").innerText =
+          "You have reached the end";
+        document.getElementById("options-section").innerHTML = `
+        correct answers: ${correct_answer} </br>
+        incorrect answer: ${incorrect_answer}
+        `;
+      }
+
+      // Check selected answer
+      function checkanswer() {
+        const selectedanswer = document.querySelector(
+          'input[name="option"]:checked'
+        );
+
+        const valueofanswer = document.querySelector(
+          `label[for="${selectedanswer.id}"]`
+        ).textContent;
+
+        if (selectedanswer.value === quizData[question_num].correct) {
+          correct_answer++;
+          console.log("correct answer");
+        } else {
+          incorrect_answer++;
+          console.log("Incorrect answer");
+        }
+        question_num++;
+        nextquestion(quizData);
+      }
+
+      // Function to get next question
+      function nextquestion(json_obj) {
+        if (question_num < json_obj.length) {
+          document.getElementById("question-section").innerText =
+            json_obj[question_num].question;
+          document.getElementById("options-section").innerHTML = `<form>
+
+                <input type="radio" id="option_a" name="option" value="a">
+                <label for="option_a">${json_obj[question_num].a}</label></br>
+
+                <input type="radio" id="option_b" name="option" value="b">
+                <label for="option_b">${json_obj[question_num].b}</label></br>
+
+                <input type="radio" id="option_c" name="option" value="c">
+                <label for="option_c">${json_obj[question_num].c}</label></br>
+
+                <input type="radio" id="option_d" name="option" value="d">
+                <label for="option_d">${json_obj[question_num].d}</label></br>
+
+            </form>`;
+        } else {
+          display_result();
+        }
+      }
+
+      // Define your function within the same module
+      async function nextpage() {
+        document.getElementById("quiz-time-image-centre").style.opacity = 0;
+        document.getElementById("heart-image-centre").style.opacity = 0;
+        document.getElementById("start-button-bg-image").style.opacity = 0;
+        document.getElementById("start-text-image").style.opacity = 0;
+        document.getElementById("main-container").style.opacity = 1;
+
+        nextquestion(quizData);
+      }
+
+      // IMPORTANT: Make the function available to your HTML (see below)
+      window.nextpage = nextpage;
+      window.checkanswer = checkanswer;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+body {
+  cursor: url("../assets/svgwaves.png"), auto;
+
+  /* Set background image */
+  background-image: url("../assets/background-image.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  /* Stacking elements */
+  z-index: 0;
+  /* Add neon animation */
+}
+@keyframes neon-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  /* 75% {
+    opacity: 0.75;
+  } */
+  50% {
+    opacity: 0;
+  }
+}
+@font-face {
+  font-family: "mario";
+  src: url("../assets/broken-console/Broken\ Console\ Bold.ttf");
+}
+/* Style ground */
+.ground-image {
+  z-index: 2;
+  position: fixed;
+  height: 18%;
+  width: 50%;
+  bottom: 0%;
+}
+
+#ground-image-left {
+  animation: neon-flicker 0.1s 3 0.7s;
+  left: 0px;
+}
+
+#ground-image-right {
+  animation: neon-flicker 0.1s 3 0.75s;
+  right: 0px;
+}
+
+/* Style Mountain */
+#mountain-image-right {
+  z-index: 1;
+  position: fixed;
+  height: 40vh;
+  width: 50vw;
+  bottom: 23vh;
+  right: -15vw;
+  animation: neon-flicker 0.1s 3 0.5s;
+}
+
+/* Style cloud */
+.cloud-image {
+  z-index: 2;
+  position: fixed;
+  height: 12%;
+  width: auto;
+  animation: neon-flicker 0.1s 3 0s;
+}
+
+#cloud-image-left {
+  margin-top: 5%;
+  left: -10%;
+}
+
+#cloud-image-right {
+  margin-top: 5%;
+  /* This is the corrected property */
+  right: -10%;
+}
+
+/* Style grass */
+.grass-image {
+  z-index: 2;
+  position: fixed;
+  height: 15%;
+  width: 50%;
+  bottom: 18%;
+}
+
+#grass-image-left {
+  left: 0px;
+  animation: neon-flicker 0.1s 3 0.6s;
+}
+
+#grass-image-right {
+  right: 0px;
+  animation: neon-flicker 0.1s 3 0.65s;
+}
+
+/* Style Flower */
+#flower-image-left {
+  z-index: 1;
+  position: fixed;
+  height: auto;
+  width: 5%;
+  bottom: 23%;
+  left: 10%;
+  animation: neon-flicker 0.2s 3 0.5s;
+}
+
+/*  Style Hearts */
+#heart-image-centre {
+  z-index: 1;
+  position: fixed;
+  height: 6%;
+  width: auto;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: neon-flicker 0.2s 3 0.05s;
+}
+
+/*  Style quiz time text */
+#quiz-time-image-centre {
+  z-index: 1;
+  position: fixed;
+  height: 25vh;
+  width: auto;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: neon-flicker 0.2s 3 0.2s;
+}
+
+/*  Style start Text bg image*/
+#start-button-bg-image {
+  z-index: 1;
+  position: fixed;
+  height: 10%;
+  width: auto;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: neon-flicker 0.2s 3 0.3s;
+}
+
+/* Style Start button text */
+#start-text-image {
+  z-index: 3;
+  position: fixed;
+  height: 7%;
+  width: auto;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: neon-flicker 0.1s 5 0.8s;
+}
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+/* Style the question container */
+#main-container {
+  background-color: white;
+  border: 8px solid black;
+  border-radius: 50px;
+  opacity: 0;
+  z-index: 1;
+  position: fixed;
+  height: 45vh;
+  width: 35vw;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Style question centre */
+#question-section {
+  display: flex;
+  padding: 0 1vw 0 1vw;
+  justify-content: left;
+  position: relative;
+  font-size: 3vh;
+  word-break: break-word;
+  top: 5vh;
+  z-index: 1;
+  font-family: mario;
+}
+
+#options-section {
+  display: flex;
+  padding: 0 4vw 0 1vw;
+  justify-content: left;
+  position: relative;
+  font-size: 3vh;
+  word-break: break-word;
+  top: 8vh;
+  right: 5%;
+  left: 5%;
+  z-index: 1;
+  font-family: mario;
+}
+
+#answerlist {
+  margin-top: 2%;
+  font-size: 3vh;
+}
+
+#submit-answer {
+  display: flex;
+  padding: 2vh 2vw 0.5vh 2vw;
+
+  position: relative;
+  font-size: 4vh;
+  top: 10vh;
+  right: 5%;
+  left: 5%;
+
+  font-family: mario;
+}
