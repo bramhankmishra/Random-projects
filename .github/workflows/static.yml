@@ -1,5 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Simple workflow for deploying multiple static HTML sites to GitHub Pages
+name: Deploy Static HTML Sites to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -15,14 +15,13 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Deploy job
   deploy:
     environment:
       name: github-pages
@@ -31,13 +30,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # This single step prepares all your sites for deployment
+      - name: Prepare deployment artifact
+        run: |
+          # Create a root directory for the Pages site. This will be the deployment source.
+          mkdir _site
+          
+          # Copy each project folder into the '_site' directory.
+          # The name of the folder here will be part of the URL.
+          # IMPORTANT: Replace 'bg-color-changer' and 'quiz-app' with your actual folder names.
+          echo "Copying bg-color-changer..."
+          cp -r bg-color-changer _site/
+
+          echo "Copying quiz-app..."
+          cp -r quiz-app _site/
+          
+          # Optional: Create a root index.html to link to your projects
+          echo '<html><head><title>My Projects</title></head><body><h1>Project Index</h1><ul><li><a href="bg-color-changer/">Go to Project 1</a></li><li><a href="quiz-app/">Go to Project 2</a></li></ul></body></html>' > _site/index.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './'
+          # Upload the combined '_site' directory
+          path: './_site'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
