@@ -1,0 +1,34 @@
+#color-change-buttons-div {
+  /*Position the container in a page  */
+  margin: 2.5vh 15vw auto 15vw;
+  padding: 1.5%;
+
+  /* Position the items */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: center;
+
+  /* Border design */
+  border-radius: 25px;
+  border-width: thin;
+  border-color: black;
+  border-style: solid;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+  /* Coloring */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.bg-change-button {
+  /*Position the container in a page  */
+  padding: 1px 10px 1px 10px;
+  margin: 1px auto 1px auto;
+
+  /* Border design */
+  border-radius: 25px;
+
+  /* Coloring */
+  color: rgb(255, 253, 240);
+}
