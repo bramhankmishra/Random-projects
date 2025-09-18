@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=4, initial-scale=1.0" />
+    <title>Poke Cards</title>
+    <link href="./style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="main_card_container">
+      <div id="category_selector">
+        <select id="dropdown_categories">
+          <option selected="selected" disabled="disabled">Select Type</option>
+        </select>
+      </div>
+      <div id="quantity_selector">
+        <input id="input_box" type="number" />
+      </div>
+      <div>
+        <button id="button" type="button" onclick="showcards()">
+          Get cards!
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let count = 0;
+      let number_of_cards = 0;
+      document.getElementById("button").addEventListener("click", () => {
+        number_of_cards = document.getElementById("input_box").valueAsNumber;
+      });
+      
+      async function get_categories() {
+        const data = await fetch("https://pokeapi.co/api/v2/type/");
+        const categories = await data.json();
+        const dropdown_list = document.getElementById("dropdown_categories");
+        // Insert options in drop down list
+        for (type of categories.results) {
+          dropdown_list.innerHTML += `<option>${type.name}</option>`;
+        }
+      }
+
+      async function get_pokemon() {
+        const selected_drop_down = document.getElementById(
+          "dropdown_categories"
+        );
+        const url =
+          "https://pokeapi.co/api/v2/type/" + selected_drop_down.value;
+        const data = await fetch(url);
+        const pokemon_list = await data.json();
+
+        // Remove existing elements
+        vanish_element();
+
+        for (my_pokemon of pokemon_list.pokemon) {
+          if (number_of_cards <= count) {
+            break;
+          }
+          count++;
+
+          // console.log(my_pokemon.pokemon);
+          const pokemon_data = await fetch(my_pokemon.pokemon.url);
+          const pokemon_data_json = await pokemon_data.json();
+          // console.log(pokemon_data_json.sprites);
+
+          create_card(
+            my_pokemon.pokemon.name,
+            pokemon_data_json.sprites.other.showdown.front_default
+          );
+        }
+      }
+
+      function vanish_element() {
+        const element_to_vanish = document.getElementById(
+          "main_card_container"
+        );
+        // console.log(element_to_vanish);
+        element_to_vanish.innerHTML = "";
+        // for (element of element_to_vanish) {
+        //   element.style.opacity = 0;
+        // }
+      }
+
+      function create_card(name, image) {
+        const card_container = document.createElement("div");
+        card_container.id = "final_card_container";
+
+        const name_container = document.createElement("div");
+        name_container.className = "name_container";
+
+        const image_container = document.createElement("div");
+        image_container.className = "image_container";
+
+        name_container.innerHTML = `<p>${name}</p>`;
+        image_container.innerHTML = `<img src=${image} alt="Pokemon" >`;
+
+        card_container.appendChild(name_container);
+        card_container.appendChild(image_container);
+
+        document
+          .getElementById("main_card_container")
+          .appendChild(card_container);
+      }
+
+      function showcards() {
+        get_pokemon();
+        // console.log(document.getElementById("main_card_container").childNodes);
+        // create_card(name, image);
+        // console.log(document.getElementById("main_card_container").childNodes);
+      }
+
+      // setInterval(showcards, 3000);
+
+      get_categories();
+    </script>
+  </body>
+</html>
