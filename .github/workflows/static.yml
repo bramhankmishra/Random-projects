@@ -47,7 +47,7 @@ jobs:
           cp -r quiz-app _site/
           
           # Optional: Create a root index.html to link to your projects
-          echo '<html><head><title>My Projects</title></head><body><h1>Project Index</h1><ul><li><a href="bg-color-changer/">Go to Project 1</a></li><li><a href="quiz-app/">Go to Project 2</a></li></ul></body></html>' > _site/index.html
+          echo '<html><head><title>My Projects</title></head><body><h1>Project Index</h1><ul><li><a href="bg-color-changer/">Go to Project 1</a></li><li><a href="quiz-app/">Go to Project 2</a></li><li><a href="The-Pokémon/">Go to Project 3</a></li></ul></body></html>' > _site/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
